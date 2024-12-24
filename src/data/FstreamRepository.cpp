@@ -19,6 +19,7 @@ TextEntity FstreamRepository::read(const char* filePath) const {
     file.read(content, size);
     if (!file) {
         delete[] content;
+        file.close();
         throw runtime_error("Error reading file");
     }
     content[size] = '\0';
@@ -35,6 +36,7 @@ void FstreamRepository::write(const char* filePath, const TextEntity& text) cons
 
     file.write(text.getContent(), text.getSize());
     if (!file) {
+        file.close();
         throw runtime_error("Error writing file");
     }
 
