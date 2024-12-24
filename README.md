@@ -9,13 +9,13 @@
 
 ```bash
 make
-./main
+./main fstream or cstdio
 
 ### 2. Компиляция и запуск с анализом утечек памяти
  
 ```bash
 make
-valgrind --leak-check=full ./main
+valgrind --leak-check=full ./main [fstream or cstdio]
 
 ### 2. Компиляция в режиме Debug
 
