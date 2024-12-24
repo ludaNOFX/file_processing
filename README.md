@@ -20,8 +20,7 @@ valgrind --leak-check=full ./main
 ### 2. Компиляция в режиме Debug
 
 ```bash
-/usr/bin/g++ -g -o build/Debug/outDebug src/main.cpp src/entities/TextEntity.cpp src/domain/TextProcessor.cpp src/data/FileRepository.cpp src/utils/string_utils.cpp src/utils/NumberToWordCon
-verter.cpp
+/usr/bin/g++ -g -o build/Debug/outDebug src/main.cpp src/data/CstdioRepository.cpp src/data/dao.cpp src/data/FstreamRepository.cpp src/data/RepoFactory.cpp src/domain/TextProcessor.cpp src/entities/TextEntity.cpp src/utils/ArgumentParser.cpp src/utils/NumberToWordConverter.cpp src/utils/string_utils.cpp  
 
 '''python file
 press F5
