@@ -1,11 +1,11 @@
-#include "FileRepository.h"
+#include "CstdioRepository.h"
 #include <cstdio>
 #include <stdexcept>
 #include "../utils/string_utils.h"
 
 using namespace std;
 
-TextEntity FileRepository::read(const char* filePath) const {
+TextEntity CstdioRepository::read(const char* filePath) const {
     FILE* file = fopen(filePath, "r");
     fseek(file, 0, SEEK_END);
     size_t size = static_cast<size_t>(ftell(file));  // Используем size_t для переменной size
@@ -23,7 +23,7 @@ TextEntity FileRepository::read(const char* filePath) const {
     return TextEntity(content, size);
 }
 
-void FileRepository::write(const char* filePath, const TextEntity& text) const {
+void CstdioRepository::write(const char* filePath, const TextEntity& text) const {
     FILE* file = fopen(filePath, "w");
     if (!file) {
         throw runtime_error("Unable to open file for writing");

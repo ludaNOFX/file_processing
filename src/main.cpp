@@ -1,19 +1,35 @@
-#include "data/FileRepository.h"
+#include "data/CstdioRepository.h"
+#include "data/FstreamRepository.h"
+#include "data/dao.h"
 #include "domain/TextProcessor.h"
+#include "enum/RepoEnum.h"
+#include "utils/ArgumentParser.h"
+#include "data/RepoFactory.h"
 #include <iostream>
 #include <fstream>
 
+
 using namespace std;
 
-int main() {
+
+int main(int argc, char* argv[]) {
     try {
         const char* inputFilePath = "input.txt";
         const char* outputFilePath = "output.txt";
 
-        FileRepository fileRepo;
-        TextEntity inputText = fileRepo.read(inputFilePath);
+        // Парсим аргументы командной строки
+        RepositoryType repoType = parseArguments(argc, argv);
+
+        // Явное указание типа репозитория
+        unique_ptr<IRepository> repo = gen_repo(repoType);
+
+        // Создаем DAO с выбранным репозиторием
+        DAO dao(*repo);
+
+        // Загружаем, обрабатываем и сохраняем данные
+        TextEntity inputText = dao.get(inputFilePath);
         TextEntity processedText = TextProcessorUsecase::process(inputText);
-        fileRepo.write(outputFilePath, processedText);
+        dao.save(outputFilePath, processedText);
 
         cout << "Processing completed. Output written to " << outputFilePath << endl;
     } catch (const exception& e) {
@@ -23,3 +39,4 @@ int main() {
 
     return 0;
 }
+
